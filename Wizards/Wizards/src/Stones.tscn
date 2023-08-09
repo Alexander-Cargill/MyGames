@@ -1,0 +1,156 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/position_0.gd" type="Script" id=1]
+[ext_resource path="res://src/position_1.gd" type="Script" id=2]
+[ext_resource path="res://src/position_2.gd" type="Script" id=3]
+[ext_resource path="res://src/position_3.gd" type="Script" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "stone_fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9, 0.990139 ),
+"transitions": PoolRealArray( 2.07053, 8.87656, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "free_sprite_children"
+} ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "stone_fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9, 0.990139 ),
+"transitions": PoolRealArray( 2.07053, 8.87656, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "free_sprite_children"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "stone_fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9, 0.990139 ),
+"transitions": PoolRealArray( 2.07053, 8.87656, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "free_sprite_children"
+} ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "stone_fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9, 0.990139 ),
+"transitions": PoolRealArray( 2.07053, 8.87656, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "free_sprite_children"
+} ]
+}
+
+[node name="Stones" type="Node2D"]
+
+[node name="position_0" type="Node2D" parent="."]
+position = Vector2( -100, -90 )
+scale = Vector2( 0.4, 0.6 )
+script = ExtResource( 1 )
+
+[node name="anim_player" type="AnimationPlayer" parent="position_0"]
+anims/stone_fade = SubResource( 1 )
+
+[node name="position_1" type="Node2D" parent="."]
+position = Vector2( -50, -180 )
+scale = Vector2( 0.4, 0.6 )
+script = ExtResource( 2 )
+
+[node name="anim_player" type="AnimationPlayer" parent="position_1"]
+anims/stone_fade = SubResource( 2 )
+
+[node name="position_2" type="Node2D" parent="."]
+position = Vector2( 70, -180 )
+scale = Vector2( 0.4, 0.6 )
+script = ExtResource( 3 )
+
+[node name="anim_player" type="AnimationPlayer" parent="position_2"]
+anims/stone_fade = SubResource( 3 )
+
+[node name="position_3" type="Node2D" parent="."]
+position = Vector2( 110, -90 )
+scale = Vector2( 0.4, 0.6 )
+script = ExtResource( 4 )
+
+[node name="anim_player" type="AnimationPlayer" parent="position_3"]
+anims/stone_fade = SubResource( 4 )

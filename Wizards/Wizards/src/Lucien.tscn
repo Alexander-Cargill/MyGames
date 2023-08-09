@@ -1,0 +1,115 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://src/Lucien.gd" type="Script" id=1]
+[ext_resource path="res://src/fireball_spell.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Stones.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Malakai/Purple_wizard_Malakai (Sprite_1) (standing).png" type="Texture" id=4]
+[ext_resource path="res://assets/Malakai/Malakai_staff.png" type="Texture" id=5]
+[ext_resource path="res://assets/Malakai/Malakai_Arm.png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=2]
+resource_name = "cast_attack_spell"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Lucien_sprite/Node2D:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.1, 0, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 90.0, 0.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.797138 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "cast_fireball"
+} ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "spell_hit_lucien"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("Lucien_sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.619608, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.619608, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 27.8287
+height = 174.007
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 39.1536
+height = 151.31
+
+[node name="Lucien" type="KinematicBody2D"]
+position = Vector2( 266.462, 243.097 )
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 1 )
+Fireball = ExtResource( 2 )
+
+[node name="Stones" parent="." instance=ExtResource( 3 )]
+
+[node name="Lucien_sprite" type="Sprite" parent="."]
+position = Vector2( 0.245667, 0 )
+scale = Vector2( 0.219, 0.271 )
+texture = ExtResource( 4 )
+flip_h = true
+
+[node name="Node2D" type="Node2D" parent="Lucien_sprite"]
+position = Vector2( 68.4478, 19.3004 )
+rotation = 0.392699
+
+[node name="Staff" type="Sprite" parent="Lucien_sprite/Node2D"]
+position = Vector2( -131.326, 167.399 )
+texture = ExtResource( 5 )
+flip_h = true
+
+[node name="Arm" type="Sprite" parent="Lucien_sprite/Node2D"]
+position = Vector2( -61.6338, 99.2689 )
+texture = ExtResource( 6 )
+flip_h = true
+
+[node name="AnimationLucien" type="AnimationPlayer" parent="."]
+anims/cast_attack_spell = SubResource( 2 )
+anims/spell_hit_lucien = SubResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 9.7093, 6.7352 )
+shape = SubResource( 1 )
+
+[node name="RechargeTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( -0.97699, 15.5067 )
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+modulate = Color( 0.188235, 1, 0.184314, 1 )
+position = Vector2( 7.36142, -11.7953 )
+shape = SubResource( 3 )
+[connection signal="timeout" from="RechargeTimer" to="." method="_on_RechargeTimer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

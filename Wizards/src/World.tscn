@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/Background.png" type="Texture" id=1]
+[ext_resource path="res://src/Malakai.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Lucien.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/LucienHealth.gd" type="Script" id=4]
+[ext_resource path="res://assets/font_title.tres" type="DynamicFont" id=5]
+[ext_resource path="res://src/MalakaiHealth.gd" type="Script" id=6]
+
+[sub_resource type="BitmapFont" id=1]
+
+[node name="World" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="Background" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 510, 301.073 )
+scale = Vector2( 0.638646, 0.501789 )
+texture = ExtResource( 1 )
+
+[node name="Malakai" parent="." instance=ExtResource( 2 )]
+position = Vector2( 208.055, 402.133 )
+
+[node name="Lucien" parent="." instance=ExtResource( 3 )]
+position = Vector2( 751.79, 392.793 )
+collision_mask = 16
+
+[node name="LucienHealth" type="ProgressBar" parent="."]
+modulate = Color( 0.984314, 0.984314, 0.984314, 1 )
+margin_left = 720.0
+margin_top = 11.6733
+margin_right = 983.0
+margin_bottom = 42.6733
+value = 100.0
+percent_visible = false
+script = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="LucienHealth"]
+visible = false
+margin_left = -390.0
+margin_top = 201.354
+margin_right = -26.0
+margin_bottom = 281.354
+custom_fonts/font = ExtResource( 5 )
+text = "Malakai  Wins"
+
+[node name="MalakaiHealth" type="ProgressBar" parent="."]
+margin_left = 31.9259
+margin_top = 11.6733
+margin_right = 299.926
+margin_bottom = 39.6733
+value = 100.0
+percent_visible = false
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="MalakaiHealth"]
+visible = false
+margin_left = 330.389
+margin_top = 201.354
+margin_right = 632.389
+margin_bottom = 258.354
+custom_fonts/font = ExtResource( 5 )
+text = "Lucien Wins"
+
+[node name="Label2" type="Label" parent="MalakaiHealth"]
+margin_left = 468.074
+margin_top = 98.3267
+margin_right = 508.074
+margin_bottom = 155.327
+custom_fonts/font = SubResource( 1 )
+text = "Malakai"

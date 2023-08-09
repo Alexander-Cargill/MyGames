@@ -1,0 +1,126 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://src/Malakai.gd" type="Script" id=1]
+[ext_resource path="res://src/fireball_spell.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Stones.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Malakai/Purple_wizard_Malakai (Sprite_1) (standing).png" type="Texture" id=4]
+[ext_resource path="res://assets/Malakai/Malakai_staff.png" type="Texture" id=5]
+[ext_resource path="res://assets/Malakai/Malakai_Arm.png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "cast_attack_spell"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Malakai_sprite/Node2D:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 0.812252, 1 ),
+"update": 0,
+"values": [ 0.0, -100.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Malakai_sprite/Node2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 0.784584, 1 ),
+"update": 0,
+"values": [ Vector2( -75.2755, 10.3691 ), Vector2( -75.2755, 10.3691 ), Vector2( -75.2755, 10.3691 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.797138 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "cast_fireball"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "spell_hit_malakai"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("Malakai_sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.619608, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.619608, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 26.0028
+height = 154.252
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 37.8056
+height = 160.797
+
+[node name="Malakai" type="KinematicBody2D"]
+position = Vector2( 293.25, 219.005 )
+collision_layer = 2
+collision_mask = 8
+script = ExtResource( 1 )
+Fireball = ExtResource( 2 )
+
+[node name="Stones" parent="." instance=ExtResource( 3 )]
+position = Vector2( 3.05176e-05, 0.949997 )
+
+[node name="Malakai_sprite" type="Sprite" parent="."]
+position = Vector2( 2.59033, -1.737 )
+scale = Vector2( 0.218512, 0.271383 )
+texture = ExtResource( 4 )
+
+[node name="Node2D" type="Node2D" parent="Malakai_sprite"]
+position = Vector2( -75.2755, 10.3691 )
+rotation = -0.451307
+
+[node name="Staff" type="Sprite" parent="Malakai_sprite/Node2D"]
+position = Vector2( 128.805, 154.055 )
+texture = ExtResource( 5 )
+
+[node name="Arm" type="Sprite" parent="Malakai_sprite/Node2D"]
+position = Vector2( 56.8748, 94.8033 )
+texture = ExtResource( 6 )
+
+[node name="AnimationMalakai" type="AnimationPlayer" parent="."]
+anims/cast_attack_spell = SubResource( 1 )
+anims/spell_hit_malakai = SubResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.00521851, 16.1496 )
+shape = SubResource( 2 )
+
+[node name="RechargeTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( -13.1863, -2.44353 )
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+modulate = Color( 0, 1, 0.227451, 1 )
+self_modulate = Color( 1, 0.294118, 0.294118, 1 )
+position = Vector2( 16.8376, 4.02159 )
+shape = SubResource( 3 )
+[connection signal="timeout" from="RechargeTimer" to="." method="_on_RechargeTimer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
